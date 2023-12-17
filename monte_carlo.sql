@@ -1,11 +1,11 @@
-CREATE OR REPLACE FUNCTION monte_carlo_option_pricing(
+CREATE OR REPLACE PROCEDURE monte_carlo_option_pricing(
     stock_id INTEGER,
+    strike_price DECIMAL,
     volatility DECIMAL,
     risk_free_rate DECIMAL,
     time_to_maturity DECIMAL,
     num_simulations INTEGER
-)
-RETURNS TABLE (call_option_price DECIMAL, put_option_price DECIMAL) AS $$
+) AS $$
 DECLARE
     current_price DECIMAL;
     i INTEGER;
@@ -14,6 +14,8 @@ DECLARE
     simulated_price DECIMAL;
     call_payoff DECIMAL;
     put_payoff DECIMAL;
+    call_option_price DECIMAL;
+    put_option_price DECIMAL;
 BEGIN
     SELECT CurrentPrice INTO current_price FROM Stocks WHERE StockID = stock_id;
 
@@ -28,6 +30,7 @@ BEGIN
     call_option_price := exp(-risk_free_rate * time_to_maturity) * sum_call_payoff / num_simulations;
     put_option_price := exp(-risk_free_rate * time_to_maturity) * sum_put_payoff / num_simulations;
 
-    RETURN QUERY SELECT call_option_price, put_option_price;
+    INSERT INTO TempOptionPricing (OptionID, MonteCarloCallPrice, MonteCarloPutPrice)
+    VALUES (stock_id, call_option_price, put_option_price);
 END;
 $$ LANGUAGE plpgsql;

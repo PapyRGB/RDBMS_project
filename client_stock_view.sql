@@ -7,17 +7,17 @@ SELECT
     o.Type, 
     o.StrikePrice, 
     o.ExpirationDate,
-    mc.call_option_price AS MonteCarloCallPrice,
-    mc.put_option_price AS MonteCarloPutPrice,
-    bs.call_option_price AS BlackScholesCallPrice,
-    bs.put_option_price AS BlackScholesPutPrice
+    temp.MonteCarloCallPrice,
+    temp.MonteCarloPutPrice,
+    temp.BlackScholesCallPrice,
+    temp.BlackScholesPutPrice
 FROM 
     Clients c
 JOIN 
-    Options o ON c.ClientID = o.ClientID
+    Wallets w ON c.ClientID = w.ClientID
+JOIN 
+    Options o ON w.WalletID = o.WalletID
 JOIN 
     Stocks s ON o.StockID = s.StockID
-CROSS JOIN 
-    LATERAL monte_carlo_option_pricing(s.CurrentPrice, /* other params */) mc
-CROSS JOIN 
-    LATERAL black_scholes_option_pricing(s.CurrentPrice, /* other params */) bs;
+JOIN 
+    TempOptionPricing temp ON o.OptionID = temp.OptionID;
