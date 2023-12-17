@@ -37,13 +37,3 @@ CREATE TABLE HistoricalPrices (
     Date DATE NOT NULL,
     Price DECIMAL NOT NULL
 );
-
-
-CREATE TEMP TABLE TempOptionPricing (
-    OptionID INTEGER,
-    MonteCarloCallPrice DECIMAL,
-    MonteCarloPutPrice DECIMAL,
-    BlackScholesCallPrice DECIMAL,
-    BlackScholesPutPrice DECIMAL
-);
-
