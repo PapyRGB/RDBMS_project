@@ -44,6 +44,25 @@ where `d1` and `d2` are intermediate variables based on the other parameters.
 
 Each component of the project is implemented through SQL scripts and stored procedures in PostgreSQL. The database schema is carefully designed to encapsulate all necessary aspects of options trading within a bank environment. The stored procedures for Monte Carlo simulations and the Black-Scholes model are critical for calculating the option prices, which are then made accessible through a dedicated view.
 
+Please run the sql files in pgAdmin4 in this order :
+
+For the 5 firts parts :
+
+- model.sql
+- triggers.sql
+- monte_carlo.sql
+- black_schole.sql
+- example_data.sql
+- client_stock_view.sql
+
+For Decision-Making Process part :
+
+- triggers.sql
+- stored_procedures.sql
+- financial_dashboard_for_clients.sql
+- client_portfolio_overview.sql
+- dashboards.sql
+
 ## Conclusion
 
 This project successfully integrates complex financial theories and database management techniques to create a versatile and efficient system for options trading in a banking environment. It exemplifies the practical application of theoretical concepts to solve real-world financial problems.

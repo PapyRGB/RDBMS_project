@@ -1,4 +1,4 @@
-CREATE TEMP TABLE IF NOT EXISTS TempOptionPricing (
+CREATE TABLE IF NOT EXISTS TempOptionPricing (
     OptionID INTEGER,
     MonteCarloCallPrice DECIMAL,
     MonteCarloPutPrice DECIMAL,
@@ -59,4 +59,4 @@ JOIN
 	
 	
 	
-SELECT * FROM clientstockoptionprices;
+SELECT * FROM ClientStockOptionPrices;
