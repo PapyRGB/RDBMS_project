@@ -1,32 +1,36 @@
 CREATE TABLE Clients (
-    client_id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    risk_adversity_factor DECIMAL(3, 2) CHECK (risk_adversity_factor BETWEEN 0 AND 1)
+    ClientID SERIAL PRIMARY KEY,
+    Name VARCHAR(255) NOT NULL,
+    RiskAdversityFactor INTEGER NOT NULL
 );
+
 
 CREATE TABLE Wallets (
-    wallet_id SERIAL PRIMARY KEY,
-    client_id INT REFERENCES Clients(client_id),
-    balance DECIMAL(15, 2) NOT NULL
+    WalletID SERIAL PRIMARY KEY,
+    ClientID INTEGER NOT NULL REFERENCES Clients(ClientID),
+    Balance DECIMAL NOT NULL
 );
 
-CREATE TABLE Options_in_Wallets (
-    option_id SERIAL PRIMARY KEY,
-    wallet_id INT REFERENCES Wallets(wallet_id),
-    type VARCHAR(4) CHECK (type IN ('Put', 'Call')),
-    strike_price DECIMAL(10, 2) NOT NULL,
-    expiration_date DATE NOT NULL
+
+CREATE TABLE Options (
+    OptionID SERIAL PRIMARY KEY,
+    WalletID INTEGER NOT NULL REFERENCES Wallets(WalletID),
+    Type VARCHAR(50) NOT NULL CHECK (Type IN ('Put', 'Call')),
+    StrikePrice DECIMAL NOT NULL,
+    ExpirationDate DATE NOT NULL
 );
 
-CREATE TABLE Monitored_Stocks (
-    stock_id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    current_price DECIMAL(10, 2) NOT NULL
+
+CREATE TABLE Stocks (
+    StockID SERIAL PRIMARY KEY,
+    Name VARCHAR(255) NOT NULL,
+    CurrentPrice DECIMAL NOT NULL
 );
 
-CREATE TABLE Historical_Stock_Price_Data (
-    data_id SERIAL PRIMARY KEY,
-    stock_id INT REFERENCES Monitored_Stocks(stock_id),
-    date DATE NOT NULL,
-    historical_price DECIMAL(10, 2) NOT NULL
+
+CREATE TABLE HistoricalPrices (
+    PriceID SERIAL PRIMARY KEY,
+    StockID INTEGER NOT NULL REFERENCES Stocks(StockID),
+    Date DATE NOT NULL,
+    Price DECIMAL NOT NULL
 );
