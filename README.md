@@ -63,7 +63,14 @@ For Decision-Making Process part :
 - client_portfolio_overview.sql
 - dashboards.sql
 
-## Conclusion
+## Encountered problems
 
-This project successfully integrates complex financial theories and database management techniques to create a versatile and efficient system for options trading in a banking environment. It exemplifies the practical application of theoretical concepts to solve real-world financial problems.
-"""
+We encountered many problems in all the parts.
+Remaining one are :
+
+- the temporary view for the stored procedures that show nothing,
+- formulas for put prices are incoherent.
+
+## Known issues
+
+The Decision-Making Process part isn't operationnal.
